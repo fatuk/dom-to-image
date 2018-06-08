@@ -231,8 +231,12 @@
                 copyStyle(window.getComputedStyle(original), clone.style);
 
                 function copyStyle(source, target) {
-                    if (source.cssText) target.cssText = source.cssText;
-                    else copyProperties(source, target);
+                    if (source.cssText) {
+                        target.cssText = source.cssText;
+                        target.font = source.font; // here, we re-assign the font prop.
+                    } else {
+                        copyProperties(source, target);
+                    }
 
                     function copyProperties(source, target) {
                         util.asArray(source).forEach(function (name) {
